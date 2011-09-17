@@ -1,12 +1,16 @@
-var Tweeter = require('../lib/tweeter');
-var tweeter = new Tweeter({consumerKey:'yourkey', consumerSecret: 'yourSecret'});
-tweeter.get();
-tweeter.put();
-tweeter.post();
-tweeter.delete();
-console.log(tweeter.base);
+#!/usr/bin/env node
+require.paths.unshift( __dirname.replace('test', 'deps' ) );
 
-tweeter.useSSL = true;
-console.log(tweeter.base);
+try {
+    var reporter = require('nodeunit').reporters.default;
+} catch(e) {
+    var p = require('sys').puts;
+    p("Cannot find nodeunit module.");
+    p("You can download submodules for this project by doing:\n");
+    p("\tgit submodule init");
+    p("\tgit submodule update\n");
+    process.exit();
+}
 
-tweeter.apiCall('get', '/1/statuses/home_timeline.json', { user_id: 144 }, function(d) { console.log(d); });
+process.chdir(__dirname);
+reporter.run(['']);
