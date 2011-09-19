@@ -7,6 +7,8 @@ To get started, first, run:
 
 Then, edit `conf.js` and update it with your `consumerKey`, `consumerSecret`, and `oauthCallback`.
 
+Fully annotated source is available [here](http://jimschubert.github.com/tweeter.js/tweeter.html)
+
 # Testing
 tweeter.js uses nodeunit.  If you haven't used submodules before, after cloning the project execute in terminal:
 
