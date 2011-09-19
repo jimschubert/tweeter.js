@@ -1,0 +1,108 @@
+<!DOCTYPE html>  <html> <head>   <title>tweeter.timelines.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="tweeter.html">                 tweeter.js               </a>                                           <a class="source" href="tweeter.lists.html">                 tweeter.lists.js               </a>                                           <a class="source" href="tweeter.log.html">                 tweeter.log.js               </a>                                           <a class="source" href="tweeter.timelines.html">                 tweeter.timelines.js               </a>                                           <a class="source" href="tweeter.tweets.html">                 tweeter.tweets.js               </a>                                           <a class="source" href="util.html">                 util.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               tweeter.timelines.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>A wrapper for Twitter's timelines API</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">timelines</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">timelines</span><span class="p">(</span><span class="nx">tweeter</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>mark 'timelines' API for inclusion</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">if</span><span class="p">(</span><span class="nx">tweeter</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">timelines</span> <span class="k">in</span> <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span><span class="p">[</span><span class="s1">&#39;timelines&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">timelines</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">home_timeline</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">home_timeline</span><span class="p">,</span>
+        <span class="nx">mentions</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">mentions</span><span class="p">,</span>
+        <span class="nx">public_timeline</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">public_timeline</span><span class="p">,</span>
+        <span class="nx">retweeted_by_me</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">retweeted_by_me</span><span class="p">,</span>
+        <span class="nx">retweets_to_me</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">retweets_to_me</span><span class="p">,</span>
+        <span class="nx">user_timeline</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">user_timeline</span><span class="p">,</span>
+        <span class="nx">retweeted_to_user</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">retweeted_to_user</span><span class="p">,</span>
+        <span class="nx">retweeted_by_user</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">retweeted_by_user</span>
+    <span class="p">};</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h2>home_timeline(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/home_timeline">GET statuses/home_timeline</a> <br />
+Example:  </p>
+
+<pre><code> tweeter.api.timelines.home_timeline(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">home_timeline</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/home_timeline.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h2>mentions(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/mentions">GET statuses/mentions</a> <br />
+Example:  </p>
+
+<pre><code> tweeter.api.timelines.mentions(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">mentions</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/mentions.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h2>public_timeline(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/public_timeline">GET statuses/public_timeline</a> <br />
+Example:  </p>
+
+<pre><code> tweeter.api.timelines.public_timeline(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">public_timeline</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/public_timeline.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <h2>retweeted_by_me(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_me">GET statuses/retweeted_by_me</a> <br />
+Example:</p>
+
+<pre><code> tweeter.api.timelines.retweeted_by_me(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweeted_by_me</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/retweeted_by_me.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <h2>retweeted_to_me(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_me">GET statuses/retweeted_to_me</a> <br />
+Example:  </p>
+
+<pre><code> tweeter.api.timelines.retweeted_to_me(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweets_to_me</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/retweeted_to_me.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <h2>retweets_of_me(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/retweets_of_me">GET statuses/retweets_of_me</a> <br />
+Example:  </p>
+
+<pre><code> tweeter.api.timelines.retweets_of_me(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweets_of_me</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/retweets_of_me.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <h2>user_timeline(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/user_timeline">GET statuses/user_timeline</a>  </p>
+
+<p>Always specify either an <code>user_id</code> or <code>screen_name</code> when requesting a user timeline.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.timelines.user_timeline(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">user_timeline</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to user_timeline&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_id</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Always specify either an user_id or screen_name when requesting a user timeline.&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/user_timeline.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <h2>retweeted_to_user(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_user">GET statuses/retweeted_to_user</a>  </p>
+
+<p>A <code>screen_name</code> or <code>user_id</code> is requried.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.timelines.retweeted_to_user(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweeted_to_user</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to retweeted_to_user&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_id</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;A screen_name or user_id is required.&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/retweeted_to_user.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <h2>retweeted_by_user(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/get/statuses/retweeted_by_user">GET statuses/retweeted_by_user</a>  </p>
+
+<p>A <code>screen_name</code> or <code>user_id</code> is requried.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.timelines.retweeted_by_user(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">timelines</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweeted_by_user</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to retweeted_by_user&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_id</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;A screen_name or user_id is required.&quot;</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/retweeted_by_user.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">timelines</span><span class="p">;</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
