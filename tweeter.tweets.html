@@ -1,0 +1,125 @@
+<!DOCTYPE html>  <html> <head>   <title>tweeter.tweets.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="tweeter.html">                 tweeter.js               </a>                                           <a class="source" href="tweeter.lists.html">                 tweeter.lists.js               </a>                                           <a class="source" href="tweeter.log.html">                 tweeter.log.js               </a>                                           <a class="source" href="tweeter.timelines.html">                 tweeter.timelines.js               </a>                                           <a class="source" href="tweeter.tweets.html">                 tweeter.tweets.js               </a>                                           <a class="source" href="util.html">                 util.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               tweeter.tweets.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>A wrapper for Twitter's tweets API</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">tweets</span><span class="p">(</span><span class="nx">tweeter</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>mark 'tweets' API for inclusion</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">if</span><span class="p">(</span><span class="nx">tweeter</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">tweets</span> <span class="k">in</span> <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span><span class="p">[</span><span class="s1">&#39;tweets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tweets</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">retweeted_by</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">retweeted_by</span><span class="p">,</span>
+        <span class="nx">retweeted_by_ids</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">retweeted_by_ids</span><span class="p">,</span>
+        <span class="nx">retweets</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">retweets</span><span class="p">,</span>
+        <span class="nx">show</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">show</span><span class="p">,</span>
+        <span class="nx">destroy</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">destroy</span><span class="p">,</span>
+        <span class="nx">retweet</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">retweet</span><span class="p">,</span>
+        <span class="nx">update</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">update</span><span class="p">,</span>
+        <span class="nx">update_with_media</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">update_with_media</span>
+    <span class="p">};</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h2>retweeted_by(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/%3Aid/retweeted_by">GET statuses/:id/retweeted_by</a>  </p>
+
+<p>An <code>id</code> is required.  </p>
+
+<p>Example: </p>
+
+<pre><code> tweeter.api.tweets.retweeted_by(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">tweets</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweeted_by</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to retweeted_by&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;An id is required&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/&#39;</span><span class="o">+</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;/retweeted_by.json&#39;</span><span class="p">,</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h2>retweeted<em>by</em>ids(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/%3Aid/retweeted_by/ids">GET statuses/:id/retweeted_by/ids</a>  </p>
+
+<p>An <code>id</code> is required.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.tweets.retweeted_by_ids(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">tweets</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweeted_by_ids</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to retweeted_by_ids&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;An id is required&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/&#39;</span><span class="o">+</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;/retweeted_by/ids.json&#39;</span><span class="p">,</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h2>retweets(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/retweets/%3Aid">GET statuses/retweets/:id</a>  </p>
+
+<p>An <code>id</code> is required.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.tweets.retweets(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">tweets</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweets</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to retweets&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;An id is required&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/retweets/&#39;</span><span class="o">+</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">,</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <h2>show(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/statuses/show/%3Aid">GET statuses/show/:id</a>  </p>
+
+<p>An <code>id</code> is required.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.tweets.show(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">tweets</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">show</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to show&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;An id is required&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/statuses/show.json&#39;</span><span class="p">,</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <h2>destroy(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/post/statuses/destroy/%3Aid">POST statuses/destroy/:id</a>  </p>
+
+<p>An <code>id</code> is required.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.tweets.destroy(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">tweets</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">destroy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to destroy&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;An id is required&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/1/statuses/destroy/&#39;</span><span class="o">+</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <h2>retweet(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/post/statuses/retweet/%3Aid">POST statuses/retweet/:id</a>  </p>
+
+<p>An <code>id</code> is required.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.tweets.retweet(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">tweets</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">retweet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to retweet&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;An id is required&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/1/statuses/retweet/&#39;</span><span class="o">+</span><span class="nx">opt</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">,</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <h2>update(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/post/statuses/update">POST statuses/update</a>  </p>
+
+<p>A <code>status</code> is required.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.tweets.update(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">tweets</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to retweet&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;A status is required&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/1/statuses/update.json&#39;</span><span class="p">,</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <h2>udpate_with_media(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/post/statuses/update_with_media">POST statuses/update_with_media</a>  </p>
+
+<p>A <code>status</code> and a <code>media[]</code> is required.  </p>
+
+<p>Example:  </p>
+
+<pre><code> tweeter.api.tweets.update_with_media(opt,fn);
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">tweets</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update_with_media</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to retweet&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;A status is required&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">[</span><span class="s1">&#39;media[]&#39;</span><span class="p">])</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;A &#39;media[]&#39; key is required&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">upload</span><span class="p">(</span><span class="s1">&#39;/1/statuses/update_with_media.json&#39;</span><span class="p">,</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">tweets</span><span class="p">;</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
