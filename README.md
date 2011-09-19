@@ -1,6 +1,12 @@
 # tweeter.js
 A node.js wrapper around the twitter API :)
 
+To get started, first, run:
+
+    $ make create_conf
+
+Then, edit `conf.js` and update it with your `consumerKey`, `consumerSecret`, and `oauthCallback`.
+
 # Testing
 tweeter.js uses nodeunit.  If you haven't used submodules before, after cloning the project execute in terminal:
 
