@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-require.paths.unshift( __dirname.replace('test', 'deps' ) );
 
 try {
     var reporter = require('nodeunit').reporters.default;
