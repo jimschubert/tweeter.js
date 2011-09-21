@@ -1,0 +1,17 @@
+{
+  "author": "Jim Schubert <james.schubert@gmail.com> (http://github.com/jimschubert)",
+  "name": "tweeter.js",
+  "description": "A wrapper to twitter's API",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jimschubert/tweeter.js.git"
+  },
+  "engines": {
+    "node": ">= 0.4.9"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nodeunit": "*"
+  }
+}
