@@ -19,7 +19,7 @@ clean:
 update_docs: clean docs
 	@echo "\nUpdating docs on github (must manually push)\n"
 	git add docs/*
-	git -m "Updated docs"
+	git commit -m "Updated docs"
 
 submodules:
 	@echo "\nSetting up submodules\n"
