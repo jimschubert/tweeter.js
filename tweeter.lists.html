@@ -7,7 +7,8 @@
 
     <span class="k">return</span> <span class="p">{</span>
         <span class="nx">lists</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">lists</span><span class="p">,</span>
-        <span class="nx">members</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">members</span>
+        <span class="nx">members</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">members</span><span class="p">,</span>
+        <span class="nx">members_create</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">members_create</span>
     <span class="p">};</span>
 <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h2>lists(opt,fn)</h2>
 
@@ -27,7 +28,30 @@ Example:   </p>
 
 <p>Either a <code>list_id</code> or a <code>slug</code> is required. <br />
 If providing a <code>list_slug</code>, an <code>owner_screen_name</code> or <code>owner_id</code> is also required.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Lists</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">members</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> 
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to members&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">list_id</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">slug</span><span class="p">)</span> 
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Either a list_id or a slug is required for members.&quot;</span><span class="p">);</span>
     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/lists/members.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h2>members_create(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/post/lists/members/create">POST lists/members/create</a>.
+Example:  </p>
+
+<pre><code> tweeter.api.lists.members_create(opt,fn);
+</code></pre>
+
+<p>Either a <code>list_id</code> or a <code>slug</code> is required. If providing a <code>list_slug</code>, an <code>owner_screen_name</code> or <code>owner_id</code> is also required.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Lists</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">members_create</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> 
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to members_create&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">list_id</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">slug</span><span class="p">)</span> 
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Either a list_id or a slug is required for members_create.&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">opt</span><span class="p">.</span><span class="nx">slug</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="nx">opt</span><span class="p">.</span><span class="nx">owner_screen_name</span> <span class="o">||</span> <span class="nx">opt</span><span class="p">.</span><span class="nx">owner_id</span><span class="p">))</span> 
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;If providing a list_slug, an owner_screen_name or owner_id is also required.&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_id</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;A screen_name or user_id is required for members_create&quot;</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">useSSL</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/1/lists/members/create.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">Lists</span><span class="p">;</span>
