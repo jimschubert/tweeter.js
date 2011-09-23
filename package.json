@@ -2,13 +2,13 @@
   "author": "Jim Schubert <james.schubert@gmail.com> (http://github.com/jimschubert)",
   "name": "tweeter",
   "description": "A wrapper to twitter's API",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/jimschubert/tweeter.js.git"
   },
   "engines": {
-    "node": ">= 0.4.9"
+    "node": ">= 0.4.7"
   },
   "dependencies": {},
   "devDependencies": {
