@@ -1,6 +1,6 @@
 {
   "author": "Jim Schubert <james.schubert@gmail.com> (http://github.com/jimschubert)",
-  "name": "tweeter.js",
+  "name": "tweeter",
   "description": "A wrapper to twitter's API",
   "version": "0.0.1",
   "repository": {
