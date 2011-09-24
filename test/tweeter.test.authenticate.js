@@ -11,7 +11,7 @@ exports.auth = testCase({
             tweeter.setLogLevel(4);
             tweeter.authenticate(function(err, data){
             child.exec('google-chrome ' + data.authUrl);
-
+            
             http.createServer(function(req,res) {
                 if(req.url.match(/auth\/twitter\/callback/)){
                     tweeter.parseCallback(req.url, function() {
@@ -24,7 +24,7 @@ exports.auth = testCase({
                         });
                     });
                 }
-            }).listen(8080);
+            }).listen(8089); // TODO: must match ../conf port. Change this to a test.conf.
         });
     },
 

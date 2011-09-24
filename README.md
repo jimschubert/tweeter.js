@@ -1,20 +1,43 @@
 # tweeter.js
 A node.js wrapper around the twitter API :)
 
+# Installation
+
+## From npm
+You can easily install tweeter.js from the npm repository:
+
+    $ npm install tweeter
+
+This will install tweeter into `./node_modules/tweeter`.
+
+## From the Respository
+First, clone the repository:
+
+    $ git clone git@github.com:jimschubert/tweeter.js.git
+    $ cd tweeter.js
+
 To get started, first, run:
 
     $ make create_conf
 
 Then, edit `conf.js` and update it with your `consumerKey`, `consumerSecret`, and `oauthCallback`.
 
+Now, you're ready to open a node REPL environment and start playing with tweeter.js.
+
 Fully annotated source is available [here](http://jimschubert.github.com/tweeter.js/tweeter.html)
 
 # Testing
-tweeter.js uses nodeunit.  If you haven't used submodules before, after cloning the project execute in terminal:
+tweeter.js uses nodeunit for testing.  Be sure to install dependencies via npm:
 
-   $ make submodules
+    $ npm install -d
 
-This will initialize submodules and update them (clone).
+This will install all dependencies as specified in `package.json`.
+
+You can then run tests:
+
+    $ node test/tweeter.test.js
+
+The test currently opens `google-chrome` and directs to Twitter's authentication page for the application you've specified in `./conf` (created in the previous section).  It then calls `tweeter.get('/1/statuses/home_timeline.json',...` and dumps the results to the response of the locally running server.
 
 # Documentation
 tweeter.js documentation is created using [docco](https://github.com/jashkenas/docco).  
@@ -34,7 +57,7 @@ tweeter.js uses a 'mixin strategy' for applying API wrappers. I'm not sure that 
 
 You may choose to only include tweeter.js:
 
-    var Tweeter = require('./tweeter');
+    var Tweeter = require('tweeter');
     var conf = require('./my_config');
     var tweeter = new Tweeter(conf);
 
@@ -44,10 +67,10 @@ You may choose to only include tweeter.js:
 
 You may also choose to include some of the wrappers:
 
-    var Tweeter = require('./tweeter');
+    var Tweeter = require('tweeter');
     var conf = require('./my_config');
-    require('./tweeter.lists')(Tweeter);
-    require('./tweeter.timelines')(Tweeter);
+    require('tweeter/lib/tweeter.lists')(Tweeter);
+    require('tweeter/lib/tweeter.timelines')(Tweeter);
 
     var tweeter = new Tweeter(conf);
 
