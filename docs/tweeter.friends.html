@@ -1,0 +1,176 @@
+<!DOCTYPE html>  <html> <head>   <title>tweeter.friends.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="tweeter.friends.html">                 tweeter.friends.js               </a>                                           <a class="source" href="tweeter.html">                 tweeter.js               </a>                                           <a class="source" href="tweeter.lists.html">                 tweeter.lists.js               </a>                                           <a class="source" href="tweeter.log.html">                 tweeter.log.js               </a>                                           <a class="source" href="tweeter.timelines.html">                 tweeter.timelines.js               </a>                                           <a class="source" href="tweeter.tweets.html">                 tweeter.tweets.js               </a>                                           <a class="source" href="util.html">                 util.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               tweeter.friends.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>A wrapper for Twitter's friends API</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">Friends</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Friends</span><span class="p">(</span><span class="nx">tweeter</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>mark 'friends' API for inclusion</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">if</span><span class="p">(</span><span class="nx">tweeter</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">Friends</span> <span class="k">in</span> <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span><span class="p">)){</span>
+            <span class="nx">tweeter</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">include</span><span class="p">[</span><span class="s1">&#39;friends&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">Friends</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">follower_ids</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">follower_ids</span><span class="p">,</span> 
+        <span class="nx">friend_ids</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friend_ids</span><span class="p">,</span>
+        <span class="nx">friendships_exists</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_exists</span><span class="p">,</span> 
+        <span class="nx">friendships_incoming</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_incoming</span><span class="p">,</span>
+        <span class="nx">friendships_outgoing</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_outgoing</span><span class="p">,</span>
+        <span class="nx">friendships_show</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_show</span><span class="p">,</span>
+        <span class="nx">friendships_create</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_create</span><span class="p">,</span>
+        <span class="nx">friendships_destroy</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_destroy</span><span class="p">,</span>
+        <span class="nx">friendships_lookup</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_lookup</span><span class="p">,</span>
+        <span class="nx">friendships_update</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_update</span><span class="p">,</span> 
+        <span class="nx">friendships_no_retweets</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">friendships_no_retweets</span>       
+    <span class="p">};</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h2>follower_ids(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/followers/ids">GET followers/ids</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.followers_ids(opt,fn);
+</code></pre>
+
+<p>Either a <code>screen_name</code> or a <code>user_id</code> should be provided.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">follower_ids</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to follower_ids&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_id</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Either a screen_name or a user_id is required&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/followers/ids.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h2>friend_ids(opt,fn)</h2>
+
+<p>See [GET friends/ids])(https://dev.twitter.com/docs/api/1/get/friends/ids). <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friend_ids(opt,fn);  
+</code></pre>
+
+<p>Either a screen<em>name or a user</em>id should be provided.  </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friend_ids</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friend_ids&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_id</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Either a screen_name or a user_id is required&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/friends/ids.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h2>friendships_exists(opt, fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/friendships/exists">GET friendships/exists</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friendships_exists(opt,fn);  
+</code></pre>
+
+<p>You'll need an "a" and a "b" to make this request:  </p>
+
+<pre><code> { 
+     screen_name_a: 'jimschubert',  
+     screen_name_b: 'ipreferjim'  
+ }  
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_exists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_exists&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span> <span class="p">(</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name_a</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name_b</span><span class="p">)</span>
+        <span class="o">||</span> <span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name_a</span> <span class="o">&amp;&amp;</span> <span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name_b</span><span class="p">)</span> <span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;screen_name_a and screen_name_b are required&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span> <span class="p">(</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_name_a</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_name_b</span><span class="p">)</span>
+        <span class="o">||</span> <span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_name_a</span> <span class="o">&amp;&amp;</span> <span class="nx">opt</span><span class="p">.</span><span class="nx">user_name_b</span><span class="p">)</span> <span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;user_name_a and user_name_b are required&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/friendships/exists.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <h2>friendships_incoming(opt, fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/friendships/incoming">GET friendships/incoming</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friendships_incoming(opt,fn);  
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_incoming</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_incoming&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/friendships/incoming.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <h2>friendships_outgoing(opt, fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/friendships/outgoing">GET friendships/outgoing</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friendships_outgoing(opt,fn);  
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_outgoing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_outgoing&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/friendships/outgoing.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <h2>friendships_show(opt, fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/friendships/show">GET friendships/show</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friendships_show(opt,fn);  
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_show</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_show&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/friendships/show.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <h2>friendships_create(opt, fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/post/friendships/create">POST friendships/create</a>. <br />
+Example:</p>
+
+<pre><code> tweeter.api.friends.friendships_create(opt,fn);  
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_create</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_create&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/1/friendships/create.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <h2>friendships_destroy(opt, fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/post/friendships/destroy">POST friendships/destroy</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friendships_destroy(opt,fn);  
+</code></pre>
+
+<p>Either <code>user_id</code> or <code>screen_name</code> must be provided.  </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_destroy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_destroy&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_id</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Either a user_id or screen_name is required&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/1/friendships/destroy.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <h2>friendships_lookup(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/get/friendships/lookup">GET friendships/lookup</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friendships_lookup(opt,fn);  
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_lookup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+       <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_lookup&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/friendships/lookup.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <h2>friendships_update(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/1/post/friendships/update">POST friendships/update</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friendships_update(opt,fn);  
+</code></pre>
+
+<p>The target <code>user_id</code> or <code>screen_name</code> is required.  </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_update&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">user_id</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">opt</span><span class="p">.</span><span class="nx">screen_name</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;The target user_id or screen_name is required.&quot;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/1/friendships/update.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <h2>freindships_no_retweets(opt,fn)</h2>
+
+<p>See <a href="https://dev.twitter.com/docs/api/get-friendshipsno_retweet_ids">GET friendships/no_retweet_ids</a>. <br />
+Example:  </p>
+
+<pre><code> tweeter.api.friends.friendships\_no\_retweets(opt,fn);  
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Friends</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">friendships_no_retweets</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opt</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">opt</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Invalid option to friendships_no_retweets&quot;</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">useSSL</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">tweeter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/1/friendships/no_retweet_ids.json&#39;</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">Friends</span><span class="p">;</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
